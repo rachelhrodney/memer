@@ -1,5 +1,8 @@
 import React from 'react';
 import './App.css';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import SearchIcon from '@material-ui/icons/Search'
 
 class App extends React.Component {
 
@@ -24,12 +27,23 @@ class App extends React.Component {
     return (
       <div className="App">
         <form className="App-header" onSubmit={this.getMemes}>
-          <input value={text}
+          <TextField value={text}
+            autoFocus 
+            ref={r=> this.input=r}
+            variant="outlined"
+            label="Search for memes"
             onChange={e => this.setState({ text: e.target.value })}
-          />
-          <button disabled={loading || !text} type="submit">
+            style={{width: '100%',marginLeft:8}} //How can I change the height here?
+         />
+          <Button variant="contained"
+            disabled={loading || !text}
+            color="primary"
+            type="submit"
+            style={{width:100, margin:'0 10px', height:50}}
+            >
+          <SearchIcon/>
             Search
-            </button>
+            </Button>
         </form>
         <main>
           {memes.map(meme => {
