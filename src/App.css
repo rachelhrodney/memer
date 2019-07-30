@@ -2,6 +2,11 @@
   text-align: center;
 }
 
+.Header {
+  font-size: 60px;
+  background-color: lavenderblush
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
@@ -9,8 +14,8 @@
 }
 
 .App-header {
-  background-color: #009999;
-  height: 90px;
+  background-color: lavender;
+  height: 100px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -21,13 +26,13 @@
 
 .App-header input {
   width:100%;
-  height:40px;
-  font-size:50px;
+  height:47px;
+  font-size:40px;
 }
 
 .App-header button{
   height:47px;
-  width:80px;
+  width:110px;
   cursor: pointer;
 }
 

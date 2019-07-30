@@ -1,8 +1,11 @@
+
 import React from 'react';
 import './App.css';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import Button from 'react-bootstrap/Button';
 import SearchIcon from '@material-ui/icons/Search'
+import LinearProgress from 'react-bootstrap/ProgressBar';
+import InputGroup from 'react-bootstrap/InputGroup'
+import FormControl from 'react-bootstrap/FormControl'
 
 class App extends React.Component {
 
@@ -14,37 +17,37 @@ class App extends React.Component {
 
   getMemes = async (e) => {
     e.preventDefault()
-    this.setState({ loading: true })
-    var key = 'Vw1o9GtamNFrwciOojAdm7wAv59Da7pZ'
+    this.setState({ loading: true, memes: [] })
+    var key = 'jhQazp87aPuMIRIZoFu2kaI2Uk5GjZRJ'
     var url = `http://api.giphy.com/v1/gifs/search?q=${this.state.text}&api_key=${key}`
     var r = await fetch(url)
     var json = await r.json()
-    this.setState({ memes: json.data, loading: false })
+    this.setState({ memes: json.data, loading: false, text: '' })
   }
 
   render() {
     var { memes, loading, text } = this.state
     return (
       <div className="App">
+        <div className="Header"> Your Memeing Library</div>
         <form className="App-header" onSubmit={this.getMemes}>
-          <TextField value={text}
-            autoFocus 
-            ref={r=> this.input=r}
-            variant="outlined"
-            label="Search for memes"
-            onChange={e => this.setState({ text: e.target.value })}
-            style={{width: '100%',marginLeft:8}} //How can I change the height here?
-         />
-          <Button variant="contained"
-            disabled={loading || !text}
-            color="primary"
-            type="submit"
-            style={{width:100, margin:'0 10px', height:50}}
-            >
-          <SearchIcon/>
-            Search
-            </Button>
+          <InputGroup className="mb-3">
+            <FormControl
+              autoFocus
+              value={text}
+              placeholder="Search for memes...    :)"
+              onChange={e=> this.setState({text: e.target.value})}
+              aria-describedby="basic-addon2"
+            />
+            <InputGroup.Append>
+              <Button variant="outline-primary"
+                type="submit"
+                disabled={loading || !text} >
+                <SearchIcon />Search</Button>
+            </InputGroup.Append>
+          </InputGroup>
         </form>
+        {loading && <LinearProgress striped variant="success" now={40} />}
         <main>
           {memes.map(meme => {
             return <Meme key={meme.id} meme={meme} />
